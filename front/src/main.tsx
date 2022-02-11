@@ -1,3 +1,4 @@
+import 'front/styles/fonts.scss';
 import 'front/styles/index.scss';
 
 import React from 'react';

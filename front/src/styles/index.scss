@@ -5,6 +5,7 @@ html {
 body {
   @extend html;
   margin: 0;
+  font-family: 'Work Sans Regular';
 }
 #root {
   @extend body;

@@ -49,5 +49,6 @@ module.exports = {
     ],
     'no-unused-vars': 'error',
     'no-undef': 'error',
+    'jsx-a11y/no-onchange': 'off',
   },
 };
