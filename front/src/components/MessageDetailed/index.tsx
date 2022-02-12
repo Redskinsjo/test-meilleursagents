@@ -9,7 +9,7 @@ import {
   BsTelephoneFill,
 } from 'react-icons/bs';
 import { formatMsgTitle, formatMsgContactPhoneNumber } from '../../utils/message';
-import moment from 'moment';
+import moment from 'moment/min/moment-with-locales';
 
 interface MessageDetailedProps {
   data: MessageData | undefined;
@@ -21,7 +21,7 @@ const MessageDetailed = ({ data }: MessageDetailedProps) => {
     if (data) {
       new Date(data.date);
     }
-    return moment(d).locale('fr').format('lll');
+    return moment(d).format('lll');
   };
 
   return (

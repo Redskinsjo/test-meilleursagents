@@ -8,6 +8,11 @@
   </head>
   <body>
     <div id="root"></div>
+    <script type="module">
+      import moment from 'moment/min/moment-with-locales';
+      import locale from 'moment/locale/fr';
+      moment.locale('fr', locale);
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

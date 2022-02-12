@@ -1,5 +1,5 @@
 import { MessageData } from '../components/Message/types';
-import moment from 'moment';
+import moment from 'moment/min/moment-with-locales';
 
 export const msgType = (type: any) =>
   type === 'phone' ? 'Message vocal' : type === 'sms' ? 'SMS' : 'Message';
@@ -46,7 +46,8 @@ export const formatMsgDate = (data: MessageData) => {
     if (shouldBeTodayTime) {
       date = moment(d).format('h:mm');
     } else if (shouldBeAWeekDay) {
-      date = moment(d).format('dddd');
+      date =
+        moment(d).format('dddd')[0].toUpperCase() + moment(d).format('dddd').slice(1);
     } else {
       date = moment(d).format('l');
     }

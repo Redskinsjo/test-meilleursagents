@@ -2,7 +2,8 @@ import { SetStateAction, Dispatch } from 'react';
 
 export interface HeaderProps {
   agencies: Option[];
-  setSelectedAgencyId: Dispatch<SetStateAction<string>>;
+  setSelectedAgencyId: Dispatch<SetStateAction<string | undefined>>;
+  count: number;
 }
 
 export interface Option {

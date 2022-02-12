@@ -4,7 +4,8 @@ import { SetStateAction, Dispatch } from 'react';
 export interface MessageProps {
   key: any;
   data: MessageData;
-  setSelectedMessageId: Dispatch<SetStateAction<string>>;
+  setSelectedMessageId: Dispatch<SetStateAction<string | undefined>>;
+  selectedAgencyId: string | undefined;
 }
 
 export interface MessageData {
@@ -25,6 +26,6 @@ interface MessageContact {
 }
 
 // index.styled.ts
-export interface IMessageProps {
+export interface StyledMessageProps {
   read: boolean | undefined;
 }

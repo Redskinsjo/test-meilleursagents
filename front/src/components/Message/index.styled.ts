@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { IMessageProps } from './types';
+import { StyledMessageProps } from './types';
 
-export const MessageContainer = styled.div<IMessageProps>`
+export const MessageContainer = styled.div<StyledMessageProps>`
   display: grid;
   grid-template-columns: 29px 1fr 100px;
   grid-template-rows: minmax(10px, auto) 1em minmax(10px, auto);
@@ -15,7 +15,7 @@ export const MessageContainer = styled.div<IMessageProps>`
   cursor: pointer;
 `;
 
-export const MessageDate = styled.div<IMessageProps>`
+export const MessageDate = styled.div<StyledMessageProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,7 +23,7 @@ export const MessageDate = styled.div<IMessageProps>`
   color: ${({ read }) => !read && '#0000ff'};
 `;
 
-export const MessageIcon = styled.div<IMessageProps>`
+export const MessageIcon = styled.div<StyledMessageProps>`
   display: flex;
   align-items: center;
   justify-content: center;

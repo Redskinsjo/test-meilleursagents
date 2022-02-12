@@ -4,11 +4,17 @@ import axios, { AxiosResponse } from 'axios';
 import { MessageData } from 'components/Message/types';
 import Message from 'components/Message';
 import MessageDetailed from 'components/MessageDetailed';
+import { useParams } from 'react-router-dom';
 
 const App = () => {
-  const [selectedAgencyId, setSelectedAgencyId] = useState<string>('');
+  const params = useParams();
+  const [selectedAgencyId, setSelectedAgencyId] = useState<string | undefined>(
+    params.realtorId,
+  );
   const [agencies, setAgencies] = useState([]);
-  const [selectedMessageId, setSelectedMessageId] = useState<string>('');
+  const [selectedMessageId, setSelectedMessageId] = useState<string | undefined>(
+    params.messageId,
+  );
   const [messages, setMessages] = useState([]);
   const [singleMessage, setSingleMessage] = useState(undefined);
   const [loading, setLoading] = useState(true);
@@ -62,6 +68,7 @@ const App = () => {
   }, [selectedAgencyId]);
 
   useEffect(() => {
+    fetchMessages();
     fetchMessageDetails();
   }, [selectedMessageId]);
 
@@ -79,10 +86,18 @@ const App = () => {
         "messages details"
         `,
       }}>
-      <Header agencies={agencies} setSelectedAgencyId={setSelectedAgencyId}></Header>
+      <Header
+        agencies={agencies}
+        setSelectedAgencyId={setSelectedAgencyId}
+        count={messages.filter((msg: MessageData) => !msg.read).length}></Header>
       <div style={{ gridArea: 'messages' }}>
         {messages.map((msg: MessageData) => (
-          <Message key={msg.id} data={msg} setSelectedMessageId={setSelectedMessageId} />
+          <Message
+            key={msg.id}
+            data={msg}
+            setSelectedMessageId={setSelectedMessageId}
+            selectedAgencyId={selectedAgencyId}
+          />
         ))}
       </div>
       <div style={{ background: '#f7f7f7', gridArea: 'details' }}>
