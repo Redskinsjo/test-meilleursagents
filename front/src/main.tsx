@@ -1,5 +1,5 @@
-import 'front/styles/fonts.scss';
-import 'front/styles/index.scss';
+import 'front/assets/styles/fonts.scss';
+import 'front/assets/styles/index.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';

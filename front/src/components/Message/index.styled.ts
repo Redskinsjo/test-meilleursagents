@@ -1,19 +1,18 @@
 import styled from 'styled-components';
-
-interface IMessageProps {
-  read: boolean;
-}
+import { IMessageProps } from './types';
 
 export const MessageContainer = styled.div<IMessageProps>`
   display: grid;
   grid-template-columns: 29px 1fr 100px;
-  grid-template-rows: minmax(10px, auto) 1em minmax(10px, 1.9em);
+  grid-template-rows: minmax(10px, auto) 1em minmax(10px, auto);
   gap: 11px;
-  width: 550px;
+  width: 548px;
   padding: 20px 5px;
   border-right: 2px solid #c7c7c7;
   border-bottom: 2px solid #c7c7c7;
   color: ${({ read }) => read && '#979797'};
+  background: ${({ read }) => read && '#f7f7f7'};
+  cursor: pointer;
 `;
 
 export const MessageDate = styled.div<IMessageProps>`

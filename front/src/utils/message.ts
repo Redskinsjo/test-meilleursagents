@@ -1,13 +1,13 @@
-import { MessageData } from '../components/Message';
+import { MessageData } from '../components/Message/types';
 import moment from 'moment';
 
 export const msgType = (type: any) =>
   type === 'phone' ? 'Message vocal' : type === 'sms' ? 'SMS' : 'Message';
 
-const formatMsgContactPhoneNumber = (phone: string) => {
+export const formatMsgContactPhoneNumber = (phone: string | undefined | null) => {
   let count = 0;
   return phone
-    .split('')
+    ?.split('')
     .map((el: string, index: number, arr: string[]) => {
       count++;
       if (count % 2 === 0) {
@@ -20,11 +20,11 @@ const formatMsgContactPhoneNumber = (phone: string) => {
     .join('');
 };
 
-export const formatMsgTitle = (data: MessageData): string | undefined => {
+export const formatMsgTitle = (data: MessageData | undefined): string | undefined => {
   let title;
-  const first = data.contact.firstname;
-  const last = data.contact.lastname;
-  const phone = data.contact.phone;
+  const first = data?.contact.firstname;
+  const last = data?.contact.lastname;
+  const phone = data?.contact.phone;
 
   if (first && last && phone) {
     title = `${first} ${last} +(${formatMsgContactPhoneNumber(phone)})`;
