@@ -10,22 +10,20 @@ import {
 } from 'react-icons/bs';
 import { formatMsgTitle, formatMsgContactPhoneNumber } from '../../utils/message';
 import moment from 'moment/min/moment-with-locales';
+import { formatDateForDetailedMessage } from '../../utils/messageDetailed';
 
 interface MessageDetailedProps {
   data: MessageData | undefined;
 }
 
 const MessageDetailed = ({ data }: MessageDetailedProps) => {
-  const formatDateForDetailedMessage = (data: MessageData | undefined) => {
-    let d;
-    if (data) {
-      new Date(data.date);
-    }
-    return moment(d).format('lll');
-  };
-
   return (
-    <div style={{ height: 'calc(100vh - 90px)' }}>
+    <div
+      style={{
+        height: 'calc(100vh - 90px)',
+        position: 'sticky',
+        top: 30,
+      }}>
       <div
         style={{
           padding: '20px 15px 25px 15px',

@@ -10,29 +10,21 @@ import { MessageContainer, MessageDate, MessageIcon } from './index.styled';
 import { formatMsgTitle, formatMsgDate, msgType } from '../../utils/message';
 import LinesEllipsis from 'react-lines-ellipsis';
 import { MessageProps } from './types';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Message = ({ data, setSelectedMessageId, selectedAgencyId }: MessageProps) => {
+const Message = ({
+  data,
+  setSelectedMessageId,
+  selectedAgencyId,
+  updateMessage,
+}: MessageProps) => {
   const navigate = useNavigate();
-
-  const updateMessage = async (msgId: number) => {
-    try {
-      await axios({
-        url: `http://localhost:8080/realtors/${selectedAgencyId}/messages/${msgId}`,
-        method: 'PATCH',
-        data: { read: true },
-      });
-    } catch (e: any) {
-      console.log(e.response);
-    }
-  };
 
   return (
     <MessageContainer
       read={data.read}
       onClick={async () => {
-        await updateMessage(data.id);
+        updateMessage(data?.id);
         setSelectedMessageId(String(data.id));
         navigate(`/realtors/${selectedAgencyId}/messages/${data.id}`);
       }}>
@@ -90,6 +82,3 @@ const Message = ({ data, setSelectedMessageId, selectedAgencyId }: MessageProps)
 };
 
 export default Message;
-
-//     <NavLink to={`realtors/${selectedAgencyId}/messages/${data.id}`}>
-// </NavLink>

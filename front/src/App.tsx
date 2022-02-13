@@ -23,9 +23,9 @@ const App = () => {
     try {
       const result: AxiosResponse = await axios.get('http://localhost:8080/realtors');
       if (result.status === 200) {
-        const agencyId = String(result.data[0].id);
+        // const agencyId = String(result.data[0].id);
         setAgencies(result.data);
-        setSelectedAgencyId(agencyId);
+        setSelectedAgencyId(params.realtorId);
       }
     } catch (err: any) {
       console.log(err.response);
@@ -52,12 +52,25 @@ const App = () => {
         `http://localhost:8080/realtors/${selectedAgencyId}/messages/${selectedMessageId}`,
       );
       if (result.status === 200) {
-        setSingleMessage(result.data);
+        if (params.messageId) {
+          setSingleMessage(result.data);
+        }
       }
     } catch (err: any) {
       console.log(err.response);
     }
   };
+
+  const updateMessage = async (msgId: number | undefined): Promise<AxiosResponse> => {
+    const result = await axios({
+      url: `http://localhost:8080/realtors/${selectedAgencyId}/messages/${msgId}`,
+      method: 'PATCH',
+      data: { read: true },
+    });
+    return result;
+  };
+
+  console.log(singleMessage);
 
   useEffect(() => {
     fetchAgencies();
@@ -65,12 +78,22 @@ const App = () => {
 
   useEffect(() => {
     fetchMessages();
+    setSingleMessage(undefined);
+    setSelectedMessageId(undefined);
   }, [selectedAgencyId]);
 
   useEffect(() => {
     fetchMessages();
     fetchMessageDetails();
   }, [selectedMessageId]);
+
+  useEffect(() => {
+    if (selectedMessageId) {
+      updateMessage(Number(selectedMessageId));
+      fetchMessages();
+      fetchMessageDetails();
+    }
+  }, [params.messageId]);
 
   return !loading ? (
     <div
@@ -89,7 +112,8 @@ const App = () => {
       <Header
         agencies={agencies}
         setSelectedAgencyId={setSelectedAgencyId}
-        count={messages.filter((msg: MessageData) => !msg.read).length}></Header>
+        count={messages.filter((msg: MessageData) => !msg.read).length}
+        selectedAgencyId={selectedAgencyId}></Header>
       <div style={{ gridArea: 'messages' }}>
         {messages.map((msg: MessageData) => (
           <Message
@@ -97,10 +121,15 @@ const App = () => {
             data={msg}
             setSelectedMessageId={setSelectedMessageId}
             selectedAgencyId={selectedAgencyId}
+            updateMessage={updateMessage}
           />
         ))}
       </div>
-      <div style={{ background: '#f7f7f7', gridArea: 'details' }}>
+      <div
+        style={{
+          background: '#f7f7f7',
+          gridArea: 'details',
+        }}>
         {singleMessage && <MessageDetailed data={singleMessage} />}
       </div>
     </div>

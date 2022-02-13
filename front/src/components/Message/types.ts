@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import { SetStateAction, Dispatch } from 'react';
 
 // index.tsx
@@ -6,6 +7,8 @@ export interface MessageProps {
   data: MessageData;
   setSelectedMessageId: Dispatch<SetStateAction<string | undefined>>;
   selectedAgencyId: string | undefined;
+  // eslint-disable-next-line no-unused-vars
+  updateMessage: (id: number | undefined) => Promise<AxiosResponse>;
 }
 
 export interface MessageData {

@@ -5,7 +5,12 @@ import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icon
 import { HeaderProps, Option } from './types';
 import { useNavigate } from 'react-router-dom';
 
-const Header = ({ agencies, setSelectedAgencyId, count }: HeaderProps) => {
+const Header = ({
+  agencies,
+  setSelectedAgencyId,
+  count,
+  selectedAgencyId,
+}: HeaderProps) => {
   const navigate = useNavigate();
   return (
     <div
@@ -55,6 +60,7 @@ const Header = ({ agencies, setSelectedAgencyId, count }: HeaderProps) => {
               border: '1px solid #c7c7c7',
               boxShadow: '1px 1px 0.5px 0 #c7c7c7',
             }}
+            defaultValue={selectedAgencyId}
             onChange={(e) => {
               setSelectedAgencyId(e.target.value);
               navigate(`/realtors/${e.target.value}`);

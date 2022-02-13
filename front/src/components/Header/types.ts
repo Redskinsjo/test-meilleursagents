@@ -4,6 +4,7 @@ export interface HeaderProps {
   agencies: Option[];
   setSelectedAgencyId: Dispatch<SetStateAction<string | undefined>>;
   count: number;
+  selectedAgencyId: string | undefined;
 }
 
 export interface Option {
