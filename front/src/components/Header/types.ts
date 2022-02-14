@@ -13,3 +13,7 @@ export interface Option {
   name: string;
   unread_messages: number;
 }
+
+export interface StyledHeaderPartProps {
+  count: number;
+}

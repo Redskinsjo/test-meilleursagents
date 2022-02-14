@@ -27,7 +27,11 @@ export const formatMsgTitle = (data: MessageData | undefined): string | undefine
   const phone = data?.contact.phone;
 
   if (first && last && phone) {
-    title = `${first} ${last} +(${formatMsgContactPhoneNumber(phone)})`;
+    if (data.type !== 'email') {
+      title = `${first} ${last} +(${formatMsgContactPhoneNumber(phone)})`;
+    } else {
+      title = `${first} ${last}`;
+    }
   } else if (first && last) {
     title = `${first} ${last}`;
   } else if (phone) {

@@ -30,5 +30,11 @@ interface MessageContact {
 
 // index.styled.ts
 export interface StyledMessageProps {
-  read: boolean | undefined;
+  read?: boolean | undefined;
+  params?: ParamsProps;
+}
+
+export interface ParamsProps {
+  realtorId?: string | undefined;
+  messageId?: string | undefined;
 }

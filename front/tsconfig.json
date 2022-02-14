@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "types": ["vite/client"],
+    "types": ["vite/client", "cypress"],
     "baseUrl": "src",
     "allowJs": false,
     "skipLibCheck": false,
@@ -18,6 +18,6 @@
     "jsx": "react",
     "paths": { "front": ["./src"] }
   },
-  "include": ["./src"],
+  "include": ["./src", "**/*.ts", "cypress/integration/visit.spec.js"],
   "exclude": ["node_modules"]
 }

@@ -9,32 +9,21 @@ import {
   BsTelephoneFill,
 } from 'react-icons/bs';
 import { formatMsgTitle, formatMsgContactPhoneNumber } from '../../utils/message';
-import moment from 'moment/min/moment-with-locales';
+// import moment from 'moment/min/moment-with-locales';
+import { MessageDetailedContainer } from './index.styled';
 import { formatDateForDetailedMessage } from '../../utils/messageDetailed';
+import { useParams } from 'react-router-dom';
+import { MessageDetailedPartOne } from './index.styled';
 
 interface MessageDetailedProps {
   data: MessageData | undefined;
 }
 
 const MessageDetailed = ({ data }: MessageDetailedProps) => {
+  const params = useParams();
   return (
-    <div
-      style={{
-        height: 'calc(100vh - 90px)',
-        position: 'sticky',
-        top: 30,
-      }}>
-      <div
-        style={{
-          padding: '20px 15px 25px 15px',
-          display: 'grid',
-          gridTemplateColumns: '40px 250px 1fr',
-          gridTemplateRows: '30px 1fr 1fr',
-          gap: 10,
-          background: 'white',
-          margin: 30,
-          marginBottom: 0,
-        }}>
+    <MessageDetailedContainer params={params}>
+      <MessageDetailedPartOne>
         <MessageIcon read={data?.read}>
           {data?.type === 'phone' && !data?.read ? (
             <BsTelephonePlusFill />
@@ -54,18 +43,17 @@ const MessageDetailed = ({ data }: MessageDetailedProps) => {
             alignItems: 'end',
             justifyContent: 'start',
             fontSize: 22,
-            fontFamily: 'Work Sans Bold',
+            fontFamily: 'Oxygen Bold',
             gridColumnStart: 2,
             gridColumnEnd: 'span 2',
+            fontWeight: 900,
           }}>
           <div>{formatMsgTitle(data)?.split('+')[0]}</div>
         </div>
-        <div
-          style={{ gridColumnStart: 2, gridRowStart: 2, fontFamily: 'Work Sans Light' }}>
+        <div style={{ gridColumnStart: 2, gridRowStart: 2, fontFamily: 'Oxygen Light' }}>
           Email
         </div>
-        <div
-          style={{ gridColumnStart: 2, gridRowStart: 3, fontFamily: 'Work Sans Light' }}>
+        <div style={{ gridColumnStart: 2, gridRowStart: 3, fontFamily: 'Oxygen Light' }}>
           Téléphone
         </div>
         <div style={{ gridColumnStart: 3, gridRowStart: 2, color: '#0000ff' }}>
@@ -74,7 +62,7 @@ const MessageDetailed = ({ data }: MessageDetailedProps) => {
         <div style={{ gridColumnStart: 3, gridRowStart: 3, color: '#0000ff' }}>
           {formatMsgContactPhoneNumber(data?.contact.phone)}
         </div>
-      </div>
+      </MessageDetailedPartOne>
       <div
         style={{
           display: 'grid',
@@ -90,16 +78,19 @@ const MessageDetailed = ({ data }: MessageDetailedProps) => {
             alignItems: 'end',
             justifyContent: 'start',
             fontSize: 22,
-            fontFamily: 'Work Sans Bold',
+            fontFamily: 'Oxygen Bold',
+            fontWeight: 900,
           }}>
           <div>{formatMsgTitle(data)?.split('+')[0]}</div>
         </div>
-        <div style={{ fontFamily: 'Work Sans Light', color: '#979797' }}>
+        <div style={{ fontFamily: 'Oxygen Light', color: '#979797' }}>
           {formatDateForDetailedMessage(data)}
         </div>
-        <div style={{ fontFamily: 'Work Sans Regular' }}>{data?.body}</div>
+        <div style={{ fontFamily: 'Oxygen Regular' }} data-test="msg-details-body">
+          {data?.body}
+        </div>
       </div>
-    </div>
+    </MessageDetailedContainer>
   );
 };
 

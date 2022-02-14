@@ -10,7 +10,7 @@ import { MessageContainer, MessageDate, MessageIcon } from './index.styled';
 import { formatMsgTitle, formatMsgDate, msgType } from '../../utils/message';
 import LinesEllipsis from 'react-lines-ellipsis';
 import { MessageProps } from './types';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Message = ({
   data,
@@ -19,6 +19,10 @@ const Message = ({
   updateMessage,
 }: MessageProps) => {
   const navigate = useNavigate();
+  const params = useParams();
+
+  const regex = /(?<=#)[0-9]{5}\s/g;
+  const messageId: string | null = data.body.match(regex)[0];
 
   return (
     <MessageContainer
@@ -27,7 +31,10 @@ const Message = ({
         updateMessage(data?.id);
         setSelectedMessageId(String(data.id));
         navigate(`/realtors/${selectedAgencyId}/messages/${data.id}`);
-      }}>
+      }}
+      className="message"
+      data-test={data.read ? 'read' : 'unread'}
+      data-id={messageId}>
       <MessageIcon read={data.read}>
         {data?.type === 'phone' && !data?.read ? (
           <BsTelephonePlusFill />
@@ -48,10 +55,11 @@ const Message = ({
           alignItems: 'end',
           justifyContent: 'start',
           fontSize: 22,
-          fontFamily: 'Work Sans Bold',
+          fontFamily: 'Oxygen Bold',
+          fontWeight: 900,
         }}>
         <div style={{ marginRight: 5 }}>{formatMsgTitle(data)?.split('+')[0]}</div>
-        <div style={{ fontFamily: 'Work Sans Normal', fontSize: 19 }}>
+        <div style={{ fontFamily: 'Oxygen Regular', fontSize: 19, fontWeight: 500 }}>
           {formatMsgTitle(data)?.split('+')[1]}
         </div>
       </div>
@@ -74,7 +82,8 @@ const Message = ({
           gridRowStart: 3,
           gridColumnStart: 2,
           gridColumnEnd: 'span 2',
-          fontFamily: 'Work Sans Light',
+          fontFamily: 'Oxygen Light',
+          color: '#979797',
         }}
       />
     </MessageContainer>

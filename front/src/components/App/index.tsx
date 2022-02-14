@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import Header from './components/Header';
+import Header from '../Header';
 import axios, { AxiosResponse } from 'axios';
 import { MessageData } from 'components/Message/types';
 import Message from 'components/Message';
 import MessageDetailed from 'components/MessageDetailed';
 import { useParams } from 'react-router-dom';
+import { AppContainer, MessagesListContainer } from './index.styled';
 
 const App = () => {
   const params = useParams();
@@ -23,7 +24,6 @@ const App = () => {
     try {
       const result: AxiosResponse = await axios.get('http://localhost:8080/realtors');
       if (result.status === 200) {
-        // const agencyId = String(result.data[0].id);
         setAgencies(result.data);
         setSelectedAgencyId(params.realtorId);
       }
@@ -70,8 +70,6 @@ const App = () => {
     return result;
   };
 
-  console.log(singleMessage);
-
   useEffect(() => {
     fetchAgencies();
   }, []);
@@ -96,25 +94,13 @@ const App = () => {
   }, [params.messageId]);
 
   return !loading ? (
-    <div
-      style={{
-        height: '100%',
-        width: '100%',
-        display: 'grid',
-        gridTemplateColumns: '550px 2fr',
-        gridTemplateRows: '90px 1fr',
-        gap: 10,
-        gridTemplateAreas: `
-        "header header"
-        "messages details"
-        `,
-      }}>
+    <AppContainer>
       <Header
         agencies={agencies}
         setSelectedAgencyId={setSelectedAgencyId}
         count={messages.filter((msg: MessageData) => !msg.read).length}
         selectedAgencyId={selectedAgencyId}></Header>
-      <div style={{ gridArea: 'messages' }}>
+      <MessagesListContainer params={params}>
         {messages.map((msg: MessageData) => (
           <Message
             key={msg.id}
@@ -124,7 +110,7 @@ const App = () => {
             updateMessage={updateMessage}
           />
         ))}
-      </div>
+      </MessagesListContainer>
       <div
         style={{
           background: '#f7f7f7',
@@ -132,7 +118,7 @@ const App = () => {
         }}>
         {singleMessage && <MessageDetailed data={singleMessage} />}
       </div>
-    </div>
+    </AppContainer>
   ) : null;
 };
 

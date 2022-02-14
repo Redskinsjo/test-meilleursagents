@@ -4,6 +4,7 @@ import { BsEnvelope } from 'react-icons/bs';
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md';
 import { HeaderProps, Option } from './types';
 import { useNavigate } from 'react-router-dom';
+import { RightPartHeader } from './index.styled';
 
 const Header = ({
   agencies,
@@ -22,20 +23,11 @@ const Header = ({
         display: 'flex',
         justifyContent: 'space-between',
         gridArea: 'header',
+        maxWidth: '100vw',
       }}>
       <img src={Logo} alt="logo" style={{ objectFit: 'cover', height: '100%' }} />
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-            width: 58,
-            margin: '0px 30px',
-            background: '#0000ff',
-            padding: 8,
-            borderRadius: 10,
-          }}>
+        <RightPartHeader count={count}>
           <BsEnvelope style={{ color: 'white', fontSize: 20 }} />
           <span
             style={{
@@ -43,10 +35,11 @@ const Header = ({
               color: 'white',
               position: 'relative',
               bottom: '0.5px',
-            }}>
+            }}
+            data-test="messages-counter">
             {count}
           </span>
-        </div>
+        </RightPartHeader>
         <div style={{ display: 'flex', alignItems: 'center', margin: '0px 20px' }}>
           <select
             style={{
